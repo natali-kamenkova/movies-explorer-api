@@ -48,11 +48,6 @@ const movieSchema = new Schema({
       message: 'Ссылка должна быть валидной',
     },
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    required: true,
-  },
   movieId: {
     type: Number,
     required: true,
@@ -63,6 +58,11 @@ const movieSchema = new Schema({
   },
   nameEN: {
     type: String,
+    required: true,
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
   },
 });

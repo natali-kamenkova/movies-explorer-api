@@ -5,10 +5,36 @@ const NotAllowedError = require('../errors/NotAllowedError'); // 403
 
 // создание movie
 module.exports.createMovie = (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+  } = req.body;
+
   const ownerId = req.user._id;
 
-  Movie.create({ name, link, owner: ownerId })
+  Movie.create({
+    country: country,
+    director: director,
+    duration: duration,
+    year: year,
+    description: description,
+    image: image,
+    trailerLink: trailerLink,
+    thumbnail: thumbnail,
+    nameRU: nameRU,
+    nameEN: nameEN,
+    movieId: movieId,
+    owner: ownerId,
+  })
     .then((movie) => Movie.populate(movie, 'owner'))
     .then((movie) => res.send(movie))
     .catch((err) => {
@@ -20,10 +46,9 @@ module.exports.createMovie = (req, res, next) => {
     });
 };
 
-// получение всех movie
+// получение всех movies
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
-    .populate(['owner', 'likes'])
     .then((movie) => res.send(movie))
     .catch(next); // создаст 500
 };
