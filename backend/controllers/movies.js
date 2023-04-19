@@ -58,13 +58,13 @@ module.exports.deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const userId = req.user._id;
   Movie.findById(movieId)
-    .orFail(new NotFound('Карточка с таким _id не найдена'))
+    .orFail(new NotFound('Movie с таким _id не найден'))
     .then((movie) => {
       if (!movie.owner.equals(userId)) {
         throw new NotAllowedError('У данного пользователя нет прав для удаления данной movie!');
       } else {
         return movie.remove()
-          .then(() => res.send({ message: 'Карточка успешно удалена' }));
+          .then(() => res.send({ message: 'Movie успешно удален' }));
       }
     })
     .catch(next); // создаст 500
