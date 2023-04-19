@@ -4,27 +4,27 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const movieSchema = new Schema({
-  country: { // страна создания фильма
+  country: {
     type: String,
     required: true,
   },
-  director: { // режиссёр фильма
+  director: {
     type: String,
     required: true,
   },
-  duration: { // длительность фильма
+  duration: {
     type: Number,
     required: true,
   },
-  year: { // год выпуска фильма
+  year: {
     type: String,
     required: true,
   },
-  description: { // описание фильма
+  description: {
     type: String,
     required: true,
   },
-  image: { // ссылка на постер к фильму
+  image: {
     type: String,
     required: [true, 'Поле "image" обязательно'],
     validate: {
@@ -32,7 +32,7 @@ const movieSchema = new Schema({
       message: 'Ссылка должна быть валидной',
     },
   },
-  trailerLink: { //  ссылка на трейлер фильма
+  trailerLink: {
     type: String,
     required: [true, 'Поле "trailerLink" обязательно'],
     validate: {
@@ -40,7 +40,7 @@ const movieSchema = new Schema({
       message: 'Ссылка должна быть валидной',
     },
   },
-  thumbnail: { //  миниатюрное изображение постера к фильму
+  thumbnail: {
     type: String,
     required: [true, 'Поле "thumbnail" обязательно'],
     validate: {
@@ -48,20 +48,20 @@ const movieSchema = new Schema({
       message: 'Ссылка должна быть валидной',
     },
   },
-  owner: { // _id пользователя, который сохранил фильм. Обязательное поле
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true,
   },
-  movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer. Обязательное поле.
+  movieId: {
     type: Number,
     required: true,
   },
-  nameRU: { // название фильма на русском языке. Обязательное поле-строка
+  nameRU: {
     type: String,
     required: true,
   },
-  nameEN: { // название фильма на английском языке. Обязательное поле-строка
+  nameEN: {
     type: String,
     required: true,
   },
