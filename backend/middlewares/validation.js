@@ -21,8 +21,6 @@ module.exports.validationLogin = celebrate({
 module.exports.validationCreateUser = celebrate({ // POST /signup — создаёт пользователя
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/http[s]?:\/\/(?:www\.)?([\w-]+\.)+\/?\S*$/),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -49,8 +47,7 @@ module.exports.validationUserId = celebrate({
 
 module.exports.validationUpdateProfile = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
+    name: Joi.string().required().min(2).max(30)
   }),
 });
 /*

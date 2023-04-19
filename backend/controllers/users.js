@@ -55,17 +55,15 @@ module.exports.getUserById = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
   bcrypt.hash(password, SALT)
     .then((hash) => User.create({
-      name, about, avatar, email, password: hash,
+      name, email, password: hash,
     }))
     .then((user) => res.status(CREATED).send({
       _id: user._id,
       name: user.name,
-      about: user.about,
-      avatar: user.avatar,
       email: user.email,
     }))
 
@@ -82,8 +80,8 @@ module.exports.createUser = (req, res, next) => {
 
 // изменение профиля
 module.exports.updateProfile = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  const { name } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name }, { new: true, runValidators: true })
     .orFail(new NotFound('Пользователь не найден'))
     .then((user) => { res.send(user); })
     .catch((err) => {
