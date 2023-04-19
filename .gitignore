@@ -1,0 +1,7 @@
+/frontend/node_modules/
+/backend/node_modules/
+/backend/error.log
+/backend/request.log
+/backend/coverage/
+/frontend/build/
+/.idea
