@@ -20,7 +20,7 @@ module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFound('Пользователь не найден'))
     .then((user) => {
-      res.send(user);
+      res.send({ name: user.name, email: user.email });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
