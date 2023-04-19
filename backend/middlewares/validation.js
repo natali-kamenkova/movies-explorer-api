@@ -18,7 +18,7 @@ module.exports.validationLogin = celebrate({
   }),
 });
 
-module.exports.validationCreateUser = celebrate({ // POST /signup — создаёт пользователя
+module.exports.validationCreateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     email: Joi.string().required().email(),
@@ -28,8 +28,17 @@ module.exports.validationCreateUser = celebrate({ // POST /signup — созда
 
 module.exports.validationCreateMovie = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().pattern(/http[s]?:\/\/(?:www\.)?([\w-]+\.)+\/?\S*$/),
+    country: Joi.string().required(),
+    director:   Joi.string().required(),
+    duration:  Joi.number().required(),
+    year: Joi.string().required(),
+    description:  Joi.string().required(),
+    image: Joi.string().required().custom(validationUrl),
+    trailerLink: Joi.string().required().custom(validationUrl),
+    thumbnail: Joi.string().required().custom(validationUrl),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
