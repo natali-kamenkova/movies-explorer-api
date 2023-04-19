@@ -4,24 +4,66 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const movieSchema = new Schema({
-  name: { // имя movie, строка от 2 до 30 символов, обязательное поле
+  country: { // страна создания фильма
     type: String,
-    required: [true, 'Поле "name" обязательно'],
-    minlength: [2, 'Минимальная длина 2 символа'],
-    maxlength: [30, 'Максимальная длина 30 символов'],
+    required: true,
   },
-  link: { // ссылка на movie, строка, обязательно поле
+  director: { // режиссёр фильма
     type: String,
-    required: [true, 'Поле "link" обязательно'],
+    required: true,
+  },
+  duration: { // длительность фильма
+    type: Number,
+    required: true,
+  },
+  year: { // год выпуска фильма
+    type: String,
+    required: true,
+  },
+  description: { // описание фильма
+    type: String,
+    required: true,
+  },
+  image: { // ссылка на постер к фильму
+    type: String,
+    required: [true, 'Поле "image" обязательно'],
     validate: {
       validator: (v) => validator.isURL(v),
       message: 'Ссылка должна быть валидной',
     },
   },
-  owner: { // ссылка на модель автора movie, тип ObjectId, обязательное поле
-    type: Schema.Types.ObjectId,
+  trailerLink: { //  ссылка на трейлер фильма
+    type: String,
+    required: [true, 'Поле "trailerLink" обязательно'],
+    validate: {
+      validator: (v) => validator.isURL(v),
+      message: 'Ссылка должна быть валидной',
+    },
+  },
+  thumbnail: { //  миниатюрное изображение постера к фильму
+    type: String,
+    required: [true, 'Поле "thumbnail" обязательно'],
+    validate: {
+      validator: (v) => validator.isURL(v),
+      message: 'Ссылка должна быть валидной',
+    },
+  },
+  owner: { // _id пользователя, который сохранил фильм. Обязательное поле
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: [true, 'Поле обязательно'],
+    required: true,
+  },
+  movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer. Обязательное поле.
+    type: Number,
+    required: true,
+  },
+  nameRU: { // название фильма на русском языке. Обязательное поле-строка
+    type: String,
+    required: true,
+  },
+  nameEN: { // название фильма на английском языке. Обязательное поле-строка
+    type: String,
+    required: true,
   },
 });
 
