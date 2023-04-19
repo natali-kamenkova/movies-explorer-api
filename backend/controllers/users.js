@@ -15,13 +15,6 @@ const {
 
 const { JWT_SECRET = 'dev-key' } = process.env;
 
-// получение всех пользователей
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.send(users))
-    .catch(next);
-};
-
 // текущий пользователь
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -36,23 +29,7 @@ module.exports.getCurrentUser = (req, res, next) => {
     });
 };
 
-// получение пользователя по Id
-module.exports.getUserById = (req, res, next) => {
-  const { userId } = req.params;
-  User.findById(userId)
-    .orFail(new NotFound('Пользователь не найден'))
-    .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequest('Передан некорретный Id'));
-        return;
-      }
-      next(err);
-    });
-};
-
 // создание пользователя
-
 module.exports.createUser = (req, res, next) => {
   const {
     name, email, password,
@@ -80,23 +57,8 @@ module.exports.createUser = (req, res, next) => {
 
 // изменение профиля
 module.exports.updateProfile = (req, res, next) => {
-  const { name } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name }, { new: true, runValidators: true })
-    .orFail(new NotFound('Пользователь не найден'))
-    .then((user) => { res.send(user); })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequest('Переданы некорректные данные'));
-      } else {
-        next(err); // создаст 500
-      }
-    });
-};
-
-// изменение аватара
-module.exports.updateAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
+  const { name, email } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .orFail(new NotFound('Пользователь не найден'))
     .then((user) => { res.send(user); })
     .catch((err) => {

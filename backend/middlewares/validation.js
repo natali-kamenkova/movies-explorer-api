@@ -39,25 +39,9 @@ module.exports.validationMovieId = celebrate({
   }),
 });
 
-module.exports.validationUserId = celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().hex().length(24),
-  }),
-});
-
 module.exports.validationUpdateProfile = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30)
-  }),
-});
-/*
-module.exports.validationAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(/http[s]?:\/\/(?:www\.)?([\w-]+\.)+\/?\S*$/),
-  }),
-}); */
-module.exports.validationAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().custom(validationUrl),
+    name: Joi.string().required().min(2).max(30),
+    email: Joi.string().required().email(),
   }),
 });
