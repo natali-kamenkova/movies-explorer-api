@@ -4,7 +4,7 @@ const { validationUpdateProfile } = require('../middlewares/validation');
 
 const {
   updateProfile,
-  getCurrentUser
+  getCurrentUser,
 } = require('../controllers/users');
 
 userRouter.get('/me', getCurrentUser);

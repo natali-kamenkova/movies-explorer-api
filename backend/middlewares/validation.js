@@ -29,10 +29,10 @@ module.exports.validationCreateUser = celebrate({
 module.exports.validationCreateMovie = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
-    director:   Joi.string().required(),
-    duration:  Joi.number().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
     year: Joi.string().required(),
-    description:  Joi.string().required(),
+    description: Joi.string().required(),
     image: Joi.string().required().custom(validationUrl),
     trailerLink: Joi.string().required().custom(validationUrl),
     thumbnail: Joi.string().required().custom(validationUrl),
