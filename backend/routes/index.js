@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const userRouter = require('./users');
-const cardRouter = require('./cards');
+const movieRouter = require('./movies');
 const { auth } = require('../middlewares/auth');
 
-router.use('/cards', auth, cardRouter);
+router.use('/movies', auth, movieRouter);
 router.use('/users', auth, userRouter);
 
 router.use('/*', (req, res) => {
