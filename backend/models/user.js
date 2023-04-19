@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({ // схема пользователя
     required: false,
     minlength: 2,
     maxlength: [30, 'Максимальная длина 30 символов'],
-    default: 'Жак-Ив Кусто',
   },
   email: { // почта пользователя, уникальное значение
     type: String,
