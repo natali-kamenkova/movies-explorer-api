@@ -6,7 +6,7 @@ const { auth } = require('../middlewares/auth');
 router.use('/movies', auth, movieRouter);
 router.use('/users', auth, userRouter);
 
-router.use('/*', (req, res) => {
+router.use('/*', auth, (req, res) => {
   res.status(404).send({ message: 'Страница не найдена' });
 });
 
