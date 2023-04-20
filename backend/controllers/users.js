@@ -64,6 +64,8 @@ module.exports.updateProfile = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные'));
+      } else if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err); // создаст 500
       }
