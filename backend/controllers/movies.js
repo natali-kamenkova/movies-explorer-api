@@ -48,8 +48,8 @@ module.exports.createMovie = (req, res, next) => {
 
 // получение всех movies
 module.exports.getMovies = (req, res, next) => {
-  const userId = req.user._id;
-  Movie.find({ userId })
+  const owner = req.user._id;
+  Movie.find({ owner })
     .then((movie) => res.send(movie))
     .catch(next); // создаст 500
 };
